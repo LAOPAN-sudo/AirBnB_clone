@@ -6,7 +6,7 @@ with common attributes and methods for other classes.
 """
 import uuid
 from datetime import datetime
-
+from models import storage
 
 class BaseModel():
     """
@@ -58,6 +58,8 @@ class BaseModel():
         Updates the `updated_at` attribute with the current datetime.
         """
         self.updated_at = datetime.now()
+        storage.new(self)
+        storage.save()
 
     def to_dict(self):
         """
