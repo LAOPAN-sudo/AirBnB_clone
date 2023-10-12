@@ -37,6 +37,8 @@ class BaseModel():
         if size > 0:
             for key, value in kwargs.items():
                 if key not in ['__class__']:
+                    if key in ['created_at', 'updated_at']:
+                        value = datetime.fromisoformat(value)
                     setattr(self, key, value)
         else:
             self.id = str(uuid.uuid4())
@@ -61,18 +63,17 @@ class BaseModel():
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
-    
 
     def to_dict(self):
         """
         Returns a dictionary representation of the object.
-
         Returns:
             dict: A dictionary containing
                 all instance attributes and class name.
         """
         mylist = self.__dict__
         mylist['__class__'] = self.__class__.__name__
-        mylist['created_at'] = mylist['created_at'].isoformat()
-        mylist['updated_at'] = mylist['updated_at'].isoformat()
+        for key, value in mylist.items():
+            if key in ['created_at', 'updated_at']:
+                mylist[key] = value.isoformat()
         return mylist
