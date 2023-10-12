@@ -73,6 +73,7 @@ class BaseModel():
         """
         mylist = self.__dict__
         mylist['__class__'] = self.__class__.__name__
-        mylist['created_at'] = mylist['created_at'].isoformat()
-        mylist['updated_at'] = mylist['updated_at'].isoformat()
+        for key, value in mylist.items():
+            if key in ['created_at', 'updated_at']:
+                mylist[key] = value.isoformat()
         return mylist
