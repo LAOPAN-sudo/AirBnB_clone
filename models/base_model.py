@@ -8,6 +8,7 @@ import uuid
 from datetime import datetime
 from models import storage
 
+
 class BaseModel():
     """
     This is the BaseModel class.
@@ -60,6 +61,7 @@ class BaseModel():
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
+    
 
     def to_dict(self):
         """
