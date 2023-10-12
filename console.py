@@ -25,10 +25,7 @@ class HBNBCommand(cmd.Cmd):
         """
         return True
 
-    def do_EOF(self, arg):
-        """This command permit to exit the console
-        """
-        return True
+    do_EOF = do_quit
 
     """BaseModel Interpreter
     """
@@ -46,8 +43,9 @@ class HBNBCommand(cmd.Cmd):
             return
         if arg in ['BaseModel']:
             my_model = BaseModel()
-            my_model.save()
-            self.instances.append(my_model)
+            
+            new_list = self.instances+[my_model]
+            self.instances = new_list
             print(my_model.id)
 
     def do_show(self, arg):
@@ -78,18 +76,50 @@ class HBNBCommand(cmd.Cmd):
             print('** no instance found **')
             return
 
+    def do_destroy(self, arg):
+        """This command permit to show the content of an instance
+        of a BaseModel
+        Args:
+            This method take a argument after the command
+        :param arg(str): split it in list of string
+        """
+        args = arg.split()
+        if not arg:
+            print('** class name missing **')
+            return
+        if args[0] not in ['BaseModel']:
+            print("** class doesn't exist **")
+            return
+        if args[0] in ['BaseModel'] and len(args) < 2:
+            print('** instance id missing **')
+            return
+        if len(self.instances) > 0:
+            for item in self.instances:
+                if item.id == args[1]:
+                    del item
+        storage.reload()
+        allobjs = storage.all()
+        b = True
+        for key in allobjs.keys():
+            if f"{'BaseModel'}.{args[1]}" == key:
+                b = False
+        if b == False:
+            print('OK')
+            del allobjs[f"{'BaseModel'}.{args[1]}"]
+            
+
+
+
 
     """Implementation of helping
     """
-    def help_EOF(self):
-        """Give the documentation from the EOF command
-        """
-        print('Quit command to exit the program')
-
+    
     def help_quit(self):
         """Give the doc of the quit command
         """
         print('Quit command to exit the program')
+
+    help_EOF = help_quit
 
     def help_create(self):
         """Give the doc of the create command
