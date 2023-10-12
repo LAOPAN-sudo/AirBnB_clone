@@ -46,5 +46,5 @@ class FileStorage():
         should be raised)
         """
         if os.path.isfile(self.__file_path):
-            with open(self.__file_path, encoding='utf-8') as file:
+            with open(self.__file_path, mode='r', encoding='utf-8') as file:
                 self.__objects = json.loads(json.dumps(json.load(file)))
