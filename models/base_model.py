@@ -61,12 +61,10 @@ class BaseModel():
         self.updated_at = datetime.now()
         storage.new(self)
         storage.save()
-    
 
     def to_dict(self):
         """
         Returns a dictionary representation of the object.
-
         Returns:
             dict: A dictionary containing
                 all instance attributes and class name.
