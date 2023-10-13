@@ -3,7 +3,14 @@
 Authors: @DAVID & @SOULEY
 """
 import cmd
+import re
 from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 from models import storage
 
 
@@ -13,8 +20,10 @@ class HBNBCommand(cmd.Cmd):
     to do some console
     """
     prompt = '(hbnb) '
+    classes = {
+        'BaseModel', 'Amenity', 'City', 'Place', 'Review', 'State', 'User'
+        }
 
-    instances = []
     def emptyline(self):
         """This method permit to override the default emptyline behavior
         """
@@ -38,82 +47,136 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print('** class name missing **')
             return
-        if arg not in ['BaseModel']:
-            print("** class doesn't exist **")
+        if arg in self.classes:
+            obj = eval(arg)()
+            obj.save()
+            print(obj.id)
             return
-        if arg in ['BaseModel']:
-            my_model = BaseModel()
-            
-            new_list = self.instances+[my_model]
-            self.instances = new_list
-            print(my_model.id)
+        print("** class doesn't exist **")
+        return
 
     def do_show(self, arg):
-        """This command permit to show the content of an instance
-        of a BaseModel
+        """This command permit to create a new instance of BaseModel
         Args:
-            This method take a argument after the command
-        :param arg(str): split it in list of string
+            This command take one argument on parameter
+            :param arg(string): The string after the command
         """
         args = arg.split()
         if not arg:
             print('** class name missing **')
             return
-        if args[0] not in ['BaseModel']:
+        if args[0] not in self.classes:
             print("** class doesn't exist **")
             return
-        if args[0] in ['BaseModel'] and len(args) < 2:
-            print('** instance id missing **')
+        if len(args) < 2:
+            print("** id instance missing **")
             return
-        if len(self.instances) > 0:
-            for item in self.instances:
-                if item.id == args[1]:
-                    print(item)
-                    return
-            print('** no instance found **')
+        all_objs = storage.all()
+        for obj_id in all_objs.keys():
+            if f"{args[0]}.{args[1]}" == obj_id:
+                obj = all_objs[obj_id]
+                print(obj)
+                return
+        print("** id instance not found **")
+        return
+
+    def do_all(self, arg):
+        """This command permit to create a new instance of BaseModel
+        Args:
+            This command take one argument on parameter
+            :param arg(string): The string after the command
+        """
+        if not arg:
+            all_objs = storage.all()
+            list_all = []
+            for obj_id in all_objs.keys():
+                obj = all_objs[obj_id]
+                list_all.append(str(obj))
+            print(list_all)
             return
-        else:
-            print('** no instance found **')
+        if arg in self.classes:
+            all_objs = storage.all()
+            list_model = []
+            for obj_id in all_objs.keys():
+                if re.search(arg, obj_id):
+                    obj = all_objs[obj_id]
+                    list_model.append(str(obj))
+            if len(list_model) > 0:
+                print(list_model)
             return
+        print("** class doesn't exist **")
+        return
 
     def do_destroy(self, arg):
-        """This command permit to show the content of an instance
-        of a BaseModel
+        """This command permit to delete a new instance in the models
         Args:
-            This method take a argument after the command
-        :param arg(str): split it in list of string
+            This command take one argument on parameter
+            :param arg(string): The string after the command
         """
         args = arg.split()
         if not arg:
             print('** class name missing **')
             return
-        if args[0] not in ['BaseModel']:
+        if args[0] not in self.classes:
             print("** class doesn't exist **")
             return
-        if args[0] in ['BaseModel'] and len(args) < 2:
-            print('** instance id missing **')
+        if len(args) < 2:
+            print("** id instance missing **")
             return
-        if len(self.instances) > 0:
-            for item in self.instances:
-                if item.id == args[1]:
-                    del item
-        storage.reload()
-        allobjs = storage.all()
+        all_objs = storage.all()
+        for obj_id in all_objs.keys():
+            if f"{args[0]}.{args[1]}" == obj_id:
+                del all_objs[obj_id]
+                storage.save()
+                return
+        print("** id instance not found **")
+        return
+
+    def do_update(self, arg):
+        """This command permit to update only one attribute of an instance
+        Args:
+            This command take one argument on parameter
+            :param arg(string): The string after the command
+        """
+        args = arg.split()
+        if not arg:
+            print('** class name missing **')
+            return
+        if args[0] not in self.classes:
+            print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
         b = True
-        for key in allobjs.keys():
-            if f"{'BaseModel'}.{args[1]}" == key:
+        all_objs = storage.all()
+        for obj_id in all_objs.keys():
+            if f"{args[0]}.{args[1]}" == obj_id:
                 b = False
-        if b == False:
-            print('OK')
-            del allobjs[f"{'BaseModel'}.{args[1]}"]
-            
-
-
-
+        if b:
+            print("** no instance found **")
+            return
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return
+        if len(args) < 4:
+            print("** value missing **")
+            return
+        obj = all_objs[f"{args[0]}.{args[1]}"]
+        if args[2] in obj.__class__.__dict__.keys():
+            if args[2] not in ['id', 'created_at', 'updated_at']:
+                attr_type = type(obj.__class__.__dict__[args[2]])
+                obj.__dict__[args[2]] = attr_type(args[3]) \
+                    if type(args[3]) not in [str, int, float] else args[3]
+        else:
+            if obj.__class__.__name__ == 'BaseModel':
+                obj.__dict__[args[2]] = args[3] if type(args[3]) \
+                    in [str, int, float] else str(args[3])
+        storage.save()
+        return
 
     """Implementation of helping
     """
-    
     def help_quit(self):
         """Give the doc of the quit command
         """

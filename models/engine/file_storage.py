@@ -7,6 +7,13 @@ Date: 11/10/2023
 """
 import os
 import json
+from models.base_model import BaseModel
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 
 class FileStorage():
@@ -29,15 +36,18 @@ class FileStorage():
         the obj with key <obj class name>.id
         """
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj.to_dict()
+        self.__objects[key] = obj
 
     def save(self):
         """Thsi method permit to serializes __objects to
         the JSON file (path: __file_path)
         """
-        with open(self.__file_path, mode="w", encoding='utf-8') as file:
-            my_obj = self.__objects
-            json.dump(my_obj, file)
+        my_obj = self.__objects
+        new_dict = {}
+        for key, value in my_obj.items():
+            new_dict[key] = value.to_dict()
+        with open(self.__file_path, mode='w', encoding='utf-8') as file:
+            json.dump(new_dict, file)
 
     def reload(self):
         """This method permit to deserializes the JSON file
@@ -47,4 +57,9 @@ class FileStorage():
         """
         if os.path.isfile(self.__file_path):
             with open(self.__file_path, mode='r', encoding='utf-8') as file:
-                self.__objects = json.loads(json.dumps(json.load(file)))
+                json_loads = json.loads(json.dumps(json.load(file)))
+                for key, dictionary in json_loads.items():
+                    class_name = dictionary['__class__']
+                    del dictionary['__class__']
+                    json_loads[key] = eval(class_name)(**dictionary)
+                self.__objects = json_loads
