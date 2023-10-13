@@ -88,18 +88,91 @@ class HBNBCommand(cmd.Cmd):
         """
         if not arg:
             all_objs = storage.all()
+            list_all = []
             for obj_id in all_objs.keys():
                 obj = all_objs[obj_id]
-                print(obj)
+                list_all.append(str(obj))
+            print(list_all)
             return
         if arg in self.classes:
             all_objs = storage.all()
+            list_model = []
             for obj_id in all_objs.keys():
                 if re.search(arg, obj_id):
                     obj = all_objs[obj_id]
-                    print(obj)
+                    list_model.append(str(obj))
+            if len(list_model) > 0:
+                print(list_model)
             return
         print("** class doesn't exist **")
+        return
+
+    def do_destroy(self, arg):
+        """This command permit to delete a new instance in the models
+        Args:
+            This command take one argument on parameter
+            :param arg(string): The string after the command
+        """
+        args = arg.split()
+        if not arg:
+            print('** class name missing **')
+            return
+        if args[0] not in self.classes:
+            print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print("** id instance missing **")
+            return
+        all_objs = storage.all()
+        for obj_id in all_objs.keys():
+            if f"{args[0]}.{args[1]}" == obj_id:
+                del all_objs[obj_id]
+                storage.save()
+                return
+        print("** id instance not found **")
+        return
+
+    def do_update(self, arg):
+        """This command permit to update only one attribute of an instance
+        Args:
+            This command take one argument on parameter
+            :param arg(string): The string after the command
+        """
+        args = arg.split()
+        if not arg:
+            print('** class name missing **')
+            return
+        if args[0] not in self.classes:
+            print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+        b = True
+        all_objs = storage.all()
+        for obj_id in all_objs.keys():
+            if f"{args[0]}.{args[1]}" == obj_id:
+                b = False
+        if b:
+            print("** no instance found **")
+            return
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return
+        if len(args) < 4:
+            print("** value missing **")
+            return
+        obj = all_objs[f"{args[0]}.{args[1]}"]
+        if args[2] in obj.__class__.__dict__.keys():
+            if args[2] not in ['id', 'created_at', 'updated_at']:
+                attr_type = type(obj.__class__.__dict__[args[2]])
+                obj.__dict__[args[2]] = attr_type(args[3]) \
+                    if type(args[3]) not in [str, int, float] else args[3]
+        else:
+            if obj.__class__.__name__ == 'BaseModel':
+                obj.__dict__[args[2]] = args[3] if type(args[3]) \
+                    in [str, int, float] else str(args[3])
+        storage.save()
         return
 
     """Implementation of helping
