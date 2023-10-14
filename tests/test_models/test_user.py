@@ -7,6 +7,7 @@ unittest classes:
     TestUserToDict
 """
 
+import unittest
 from datetime import datetime
 from time import sleep
 import os
