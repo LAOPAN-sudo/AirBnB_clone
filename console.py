@@ -124,7 +124,6 @@ class HBNBCommand(cmd.Cmd):
         print("** class doesn't exist **")
         return
 
-
     def do_destroy(self, arg):
         """This command permit to delete a new instance in the models
         Args:
