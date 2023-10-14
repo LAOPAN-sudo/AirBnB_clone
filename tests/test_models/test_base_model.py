@@ -19,9 +19,9 @@ class TestBaseModel(unittest.TestCase):
         self.assertIsInstance(self.base_model.updated_at, datetime)
 
     def test_str_method(self):
-        expected_str = "[BaseModel] ({} {})".format(
+        expected_str = "[BaseModel] ({}) {}".format(
                 self.base_model.id, self.base_model.__dict__)
-        self.assertNotEqual(str(self.base_model), expected_str)
+        self.assertEqual(str(self.base_model), expected_str)
 
     def test_save_method(self):
         original_updated_at = self.base_model.updated_at
