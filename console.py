@@ -69,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         if len(args) < 2:
-            print("** id instance missing **")
+            print("** instance id missing **")
             return
         all_objs = storage.all()
         for obj_id in all_objs.keys():
@@ -77,7 +77,7 @@ class HBNBCommand(cmd.Cmd):
                 obj = all_objs[obj_id]
                 print(obj)
                 return
-        print("** id instance not found **")
+        print("** no instance found **")
         return
 
     def do_all(self, arg):
@@ -121,7 +121,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         if len(args) < 2:
-            print("** id instance missing **")
+            print("** instance id missing **")
             return
         all_objs = storage.all()
         for obj_id in all_objs.keys():
@@ -129,7 +129,7 @@ class HBNBCommand(cmd.Cmd):
                 del all_objs[obj_id]
                 storage.save()
                 return
-        print("** id instance not found **")
+        print("** no instance found **")
         return
 
     def do_update(self, arg):
@@ -146,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         if len(args) < 2:
-            print("** instance id missing **")
+            print("** id instance missing **")
             return
         b = True
         all_objs = storage.all()
