@@ -69,7 +69,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         if len(args) < 2:
-            print("** id instance missing **")
+            print("** instance id missing **")
             return
         all_objs = storage.all()
         for obj_id in all_objs.keys():
@@ -77,7 +77,7 @@ class HBNBCommand(cmd.Cmd):
                 obj = all_objs[obj_id]
                 print(obj)
                 return
-        print("** id instance not found **")
+        print("** no instance found **")
         return
 
     def do_all(self, arg):
@@ -107,6 +107,23 @@ class HBNBCommand(cmd.Cmd):
         print("** class doesn't exist **")
         return
 
+    def do_count(self, arg):
+        """This command permit to create a new instance of BaseModel
+        Args:
+            This command take one argument on parameter
+            :param arg(string): The string after the command
+        """
+        if arg in self.classes:
+            all_objs = storage.all()
+            nb_instance = 0
+            for obj_id in all_objs.keys():
+                if re.search(arg, obj_id):
+                    nb_instance = nb_instance + 1
+            print(nb_instance)
+            return
+        print("** class doesn't exist **")
+        return
+
     def do_destroy(self, arg):
         """This command permit to delete a new instance in the models
         Args:
@@ -121,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         if len(args) < 2:
-            print("** id instance missing **")
+            print("** instance id missing **")
             return
         all_objs = storage.all()
         for obj_id in all_objs.keys():
@@ -129,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
                 del all_objs[obj_id]
                 storage.save()
                 return
-        print("** id instance not found **")
+        print("** no instance found **")
         return
 
     def do_update(self, arg):
@@ -146,7 +163,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         if len(args) < 2:
-            print("** instance id missing **")
+            print("** id instance missing **")
             return
         b = True
         all_objs = storage.all()
@@ -164,14 +181,12 @@ class HBNBCommand(cmd.Cmd):
             return
         obj = all_objs[f"{args[0]}.{args[1]}"]
         if args[2] in obj.__class__.__dict__.keys():
-            if args[2] not in ['id', 'created_at', 'updated_at']:
+            if args[2] not in {'id', 'created_at', 'updated_at'}:
                 attr_type = type(obj.__class__.__dict__[args[2]])
-                obj.__dict__[args[2]] = attr_type(args[3]) \
-                    if type(args[3]) not in [str, int, float] else args[3]
+                obj.__dict__[args[2]] = attr_type(args[3])
         else:
             if obj.__class__.__name__ == 'BaseModel':
-                obj.__dict__[args[2]] = args[3] if type(args[3]) \
-                    in [str, int, float] else str(args[3])
+                obj.__dict__[args[2]] = args[3]
         storage.save()
         return
 
