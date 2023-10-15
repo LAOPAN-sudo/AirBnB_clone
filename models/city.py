@@ -10,5 +10,5 @@ class City(BaseModel):
     :param state_id(str): it will be the State.id
     :param name(str): The name of the city
     """
-    state_id = str()  # it will be the State.id
-    name = str()
+    state_id = ''  # it will be the State.id
+    name = ''

@@ -18,14 +18,14 @@ class Place(BaseModel):
         longitude (float): The longitude of the place
         amenity_ids (list): The list of amenity we add the same place
     """
-    city_id = str()  # it will be the City.id
-    user_id = str()  # it will be the User.id
-    name = str()
-    description = str()
+    city_id = ''  # it will be the City.id
+    user_id = ''  # it will be the User.id
+    name = ''
+    description = ''
     number_rooms = 0
     number_bathrooms = 0
     max_guest = 0
     price_by_night = 0
     latitude = 0.0
     longitude = 0.0
-    amenity_ids = list()  # it will be the list of Amenity.id later
+    amenity_ids = []  # it will be the list of Amenity.id later
