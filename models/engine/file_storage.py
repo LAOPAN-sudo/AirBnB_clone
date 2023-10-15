@@ -35,7 +35,7 @@ class FileStorage():
         Returns:
             dict: The dictionnary representation the all instances
         """
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """This method permit to sets in __objects
@@ -46,7 +46,7 @@ class FileStorage():
             nothing just add a new instance object in the __objects attributes
         """
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.__objects[key] = obj
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """Thsi method permit to serializes __objects to
@@ -54,11 +54,11 @@ class FileStorage():
         Returns:
             nothing just save the content of the __objects attributes in a file
         """
-        my_obj = self.__objects
+        my_obj = FileStorage.__objects
         new_dict = {}
         for key, value in my_obj.items():
             new_dict[key] = value.to_dict()
-        with open(self.__file_path, mode='w', encoding='utf-8') as file:
+        with open(FileStorage.__file_path, mode='w', encoding='utf-8') as file:
             json.dump(new_dict, file)
 
     def reload(self):
@@ -70,11 +70,12 @@ class FileStorage():
             nothing just reload the content of the json file to the
             __objects attributes
         """
-        if os.path.isfile(self.__file_path):
-            with open(self.__file_path, mode='r', encoding='utf-8') as file:
+        if os.path.isfile(FileStorage.__file_path):
+            with open(FileStorage.__file_path, mode='r', encoding='utf-8') \
+                        as file:
                 json_loads = json.loads(json.dumps(json.load(file)))
                 for key, dictionary in json_loads.items():
                     class_name = dictionary['__class__']
                     del dictionary['__class__']
                     json_loads[key] = eval(class_name)(**dictionary)
-                self.__objects = json_loads
+                FileStorage.__objects = json_loads

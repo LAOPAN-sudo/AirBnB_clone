@@ -29,6 +29,18 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
+    def default(self, arg):
+        __cmd = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "count": self.do_count,
+            "update": self.do_update
+        }
+        args = rg.split('.')
+        match = re.search(r"\w+\.w+(\d+\)", args[1])
+        print(args)
+        print(match)
+
     def do_quit(self, arg):
         """Implement the quit method
         """
