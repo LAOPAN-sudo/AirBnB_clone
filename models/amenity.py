@@ -9,4 +9,4 @@ class Amenity(BaseModel):
     Args:
         :param name(str): The name of the Amenity
     """
-    name = ""
+    name = str()

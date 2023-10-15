@@ -13,7 +13,7 @@ class User(BaseModel):
         first_name(str): The first_name of the user
         last_name(str): The last_name of the user
     """
-    email = ""
-    password = ""
-    first_name = ""
-    last_name = ""
+    email = str()
+    password = str()
+    first_name = str()
+    last_name = str()

@@ -8,4 +8,4 @@ class State(BaseModel):
     """This class describe some state but it have one argument
     :param name(str): Is a public instance of class
     """
-    name = ""
+    name = str()
