@@ -34,12 +34,30 @@ class HBNBCommand(cmd.Cmd):
             "all": self.do_all,
             "show": self.do_show,
             "count": self.do_count,
-            "update": self.do_update
+            "update": self.do_update,
+            "destroy": self.do_destroy
         }
-        args = rg.split('.')
-        match = re.search(r"\w+\.w+(\d+\)", args[1])
-        print(args)
-        print(match)
+        match = re.search(r"(\w+\.\w+)", arg)
+        if match:
+            args = match.group().split('.')
+            if args[1] in __cmd.keys():
+                match1 = re.search(r"(\(.*\))", arg)
+                if match1:
+                    argss = match1.group()[1:-1]
+                    argt = args[0]
+                    if argss != '':
+                        try:
+                            argss = eval(argss)
+                        except Exception as e:
+                            pass
+                        argt = args[0] + " "+argss
+                    return __cmd[args[1]](argt)
+                else:
+                    return
+            else:
+                return
+        else:
+            return
 
     def do_quit(self, arg):
         """Implement the quit method
@@ -195,9 +213,17 @@ class HBNBCommand(cmd.Cmd):
         if args[2] in obj.__class__.__dict__.keys():
             if args[2] not in {'id', 'created_at', 'updated_at'}:
                 attr_type = type(obj.__class__.__dict__[args[2]])
+                try:
+                    args[3] = eval(args[3])
+                except Exception as e:
+                    pass
                 obj.__dict__[args[2]] = attr_type(args[3])
         else:
             if obj.__class__.__name__ == 'BaseModel':
+                try:
+                    args[3] = eval(args[3])
+                except Exception as e:
+                    pass
                 obj.__dict__[args[2]] = args[3]
         storage.save()
         return
