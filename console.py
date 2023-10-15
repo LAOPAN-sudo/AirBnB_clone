@@ -46,10 +46,20 @@ class HBNBCommand(cmd.Cmd):
                     argss = match1.group()[1:-1]
                     argt = args[0]
                     if argss != '':
-                        try:
-                            argss = eval(argss)
-                        except Exception as e:
-                            pass
+                        argss = argss.split(', ')
+                        if len(argss) == 1:
+                            try:
+                                argss = eval(argss[0])
+                            except Exception as e:
+                                pass
+                        else:
+                            ar = ''
+                            for arg in argss:
+                                try:
+                                    ar = ar + ' '+eval(arg)
+                                except Exception as e:
+                                    ar = ar + ' '+arg
+                            argss = ar
                         argt = args[0] + " "+argss
                     return __cmd[args[1]](argt)
                 else:
