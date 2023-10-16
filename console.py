@@ -237,7 +237,7 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
         return
 
-    """Implementation of helping
+    """Implementation of helping je confirme
     """
     def help_quit(self):
         """Give the doc of the quit command
