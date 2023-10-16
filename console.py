@@ -44,6 +44,7 @@ class HBNBCommand(cmd.Cmd):
                 match1 = re.search(r"(\(.*\))", arg)
                 if match1:
                     argss = match1.group()[1:-1]
+                    print("OK",argss)
                     argt = args[0]
                     if argss != '':
                         argss = argss.split(', ')
