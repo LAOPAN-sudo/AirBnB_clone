@@ -203,7 +203,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         if len(args) < 2:
-            print("** id instance missing **")
+            print("** instance id missing **")
             return
         b = True
         all_objs = storage.all()
@@ -229,12 +229,11 @@ class HBNBCommand(cmd.Cmd):
                     pass
                 obj.__dict__[args[2]] = attr_type(args[3])
         else:
-            if obj.__class__.__name__ == 'BaseModel':
-                try:
-                    args[3] = eval(args[3])
-                except Exception as e:
-                    pass
-                obj.__dict__[args[2]] = args[3]
+            try:
+                args[3] = eval(args[3])
+            except Exception as e:
+                pass
+            obj.__dict__[args[2]] = args[3]
         storage.save()
         return
 
