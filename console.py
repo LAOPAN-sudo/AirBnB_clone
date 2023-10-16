@@ -233,7 +233,7 @@ class HBNBCommand(cmd.Cmd):
                 args[3] = eval(args[3])
             except Exception as e:
                 pass
-            obj.__dict__[args[2]] = args[3]
+                obj.__dict__[args[2]] = args[3]
         storage.save()
         return
 
