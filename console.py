@@ -228,6 +228,11 @@ class HBNBCommand(cmd.Cmd):
                 except Exception as e:
                     pass
                 obj.__dict__[args[2]] = attr_type(args[3])
+        elif type(args[2]) is dict:
+            for key, value in args[2].items():
+                if key not in ['id', 'created_at', 'updated_at']:
+                    if type(value) in [str, int, float]:
+                        obj.__dict__[key] = value
         else:
             try:
                 args[3] = eval(args[3])
