@@ -51,4 +51,33 @@
 - text Best School center vertically and horizontally
 - always at the bottom at the page
 ## 4. Search!
-
+[Task 4](./4-index.html) Write an HTML page that displays a header, footer and a filters box with a search button.
+-----
+**Layout: (based on [Task 3](./3-index.html))**
+1. Container:
+- between header and footer tags, add a div:
+- classname: container
+- max width 1000px
+- margin top and bottom 30px - it should be 30px under the bottom of the header - (screenshot)
+- center horizontally
+2. Filter section:
+- tag section
+- classname filters
+- inside the .container
+- color white
+- height: 70px
+- width: 100% of the container
+- border 1px #DDDDDD with radius 4px
+3. Button search:
+- tag button
+- text Search
+- font size: 18px
+- inside the section filters
+- background color #FF5A5F
+- text color #FFFFFF
+- height: 48px
+- width: 20% of the section filters
+- no borders
+- border radius: 4px
+- center vertically and at 30px of the right border
+- change opacity to 90% when the mouse is on the button
