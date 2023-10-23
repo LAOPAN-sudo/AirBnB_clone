@@ -42,6 +42,8 @@ button:hover {
 Locations and Amenities style
 ==========================
 */
+
+
 .amenities,
 .locations {
     float: left;
@@ -63,13 +65,13 @@ Locations and Amenities style
 
 .locations h4,
 .amenities h4 {
-    font-weight: 400px;
+    font-weight: 400;
     font-size: 14px;
 }
-/* 
-===========================================
+/*
+=========================================
 Dropdown Styles
-===========================================
+======================================== 
 */
 .popover {
     position: absolute;
@@ -98,4 +100,26 @@ Dropdown Styles
 }
 .amenities:hover .popover, .locations:hover .popover{
     display: block;
+}
+/* 
+======================================================
+Places styles
+======================================================
+*/
+
+.places h1{
+    text-align: start;
+    font-size: 30px;
+}
+.places article{
+    position: relative;
+    float: left;
+    width: 390px;
+    margin: 20px;
+    border: 1px solid #FF5A5F;
+    border-radius: 4px;
+}
+.places article h2{
+    font-size: 30px;
+    text-align: center;
 }
