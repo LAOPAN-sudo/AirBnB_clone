@@ -81,3 +81,45 @@
 - border radius: 4px
 - center vertically and at 30px of the right border
 - change opacity to 90% when the mouse is on the button
+## 5. More filters
+[Task 5](./5-index.html) Write an HTML page that displays a header, footer and a filters box.
+----
+**Layout: (based on [Task 4](./4-index.html))**
+
+1. Locations and Amenities filters:
+- tag: div
+- classname: locations for location tag and amenities for the other
+- inside the section filters (same level as the button Search)
+- height: 100% of the section filters
+- width: 25% of the section filters
+- border right #DDDDDD 1px only for the first left filter
+2. contains a title:
+- tag: h3
+- font weight: 600
+- text States or Amenities
+- contains a subtitle:
+- tag: h4
+- font weight: 400
+- font size: 14px
+- text with fake contents
+## 6. It's (h)over
+[Task 6]() Write an HTML page that displays a header, footer and a filters box with dropdown.
+-----
+**Layout: (based on [Task 5](./5-index.html))**
+
+Update Locations and Amenities filters to display a contextual dropdown when the mouse is on the filter div:
+1. tag ul
+- classname popover
+- text should be fake now
+- inside each div
+- not displayed by default
+- color #FAFAFA
+- width same as the div filter
+- border #DDDDDD 1px with border radius 4px
+- no list display
+2. Location filter has 2 levels of ul/li:
+- state -> cities
+- state name must be display in a h2 tag (font size 16px)
+## 7. Display results
+[Task 7]() Write an HTML page that displays a header, footer, a filters box with dropdown and results.
+----

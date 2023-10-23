@@ -9,7 +9,7 @@ Filters style
     width: 70%;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
-    /* Make the content of the filters right center */
+    /* Make the content of the filters right */
     display: flex;
     justify-content: right;
     align-items: center;
