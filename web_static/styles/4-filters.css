@@ -5,8 +5,8 @@ Filters style
 */
 .filters {
     color: white;
-    height: 60px;
-    width: 70%;
+    height: 70px;
+    width: 100%;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     /* Make the content of the filters right */

@@ -4,8 +4,8 @@ Filters style
 ================================== 
 */
 .filters {
-    height: 60px;
-    width: 70%;
+    height: 70px;
+    width: 100%;
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     /* Make the content of the filters right center */
@@ -77,8 +77,8 @@ Locations and Amenities style
     border: 1px solid #DDDDDD;
     border-radius: 4px;
     padding: 22px 17px;
-    margin-left:  -20%;
-    margin-top: 7px;
+    margin-left:  -14%;
+    margin-top: 17px;
 }
 .popover ul{
     margin-left: -15%;
