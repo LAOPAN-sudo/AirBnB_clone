@@ -121,5 +121,73 @@ Update Locations and Amenities filters to display a contextual dropdown when the
 - state -> cities
 - state name must be display in a h2 tag (font size 16px)
 ## 7. Display results
-[Task 7]() Write an HTML page that displays a header, footer, a filters box with dropdown and results.
+[Task 7](./7-index.html) Write an HTML page that displays a header, footer, a filters box with dropdown and results.
+----
+**Layout: (based on [Task 6](./6-index.html))**
+1. Add Places section:
+2. tag: section
+3. classname: places
+4. same level as the filters section, inside .container
+5. contains a title:
+- tag: h1
+- text: Places
+- align in the top left
+- font size: 30px
+6. contains multiple “Places” as listing (horizontal or vertical) describe by:
+- tag: article
+- width: 390px
+- padding and margin 20px
+- border #FF5A5F 1px with radius 4px
+- contains the place name:
+- tag: h2
+- font size: 30px
+- center horizontally
+## 8. More details
+[TAsk 8](./8-index.html) Write an HTML page that displays a header, a footer, a filter box (dropdown list) and the result of the search.
+**Add more information to a Place article:**
+
+1. Price by night:
+- tag: div
+- classname: price_by_night
+- same level as the place name
+- font color: #FF5A5F
+- border: #FF5A5F 4px rounded
+- min width: 60px
+- height: 60px
+- font size: 30px
+- align: the top right (with space)
+2. Information section:
+- tag: div
+- classname: information
+- height: 80px
+- border: top and bottom #DDDDDD 1px
+- contains (align vertically):
+3. Number of guests:
+- tag: div
+- classname: max_guest
+- width: 100px
+- fake text
+- icon
+4. Number of bedrooms:
+- tag: div
+- classname: number_rooms
+- width: 100px
+- fake text
+- icon
+5. Number of bathrooms:
+- tag: div
+- classname: number_bathrooms
+- width: 100px
+- fake text
+- icon
+6. User section:
+- tag: div
+- classname: user
+- text Owner: <fake text>
+- Owner text should be in bold
+7. Description section:
+- tag: div
+- classname: description
+## 9. Full details
+[TAsk 9]() Write an HTML page that displays a header, footer, a filters box with dropdown and results.
 ----
