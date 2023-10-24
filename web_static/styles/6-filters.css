@@ -34,7 +34,7 @@ button {
 }
 
 button:hover {
-    color: rgba(255, 255, 255, 0.9);
+    opacity: 0.9;
 }
 
 /* 
@@ -63,7 +63,7 @@ Locations and Amenities style
 
 .locations h4,
 .amenities h4 {
-    font-weight: 400px;
+    font-weight: 400;
     font-size: 14px;
 }
 /* 
@@ -86,13 +86,13 @@ Dropdown Styles
 .popover ul{
     margin-left: -15%;
 }
-.popover li, .popover ul li{
+.popover li, .popover li ul li{
     display: block;
     list-style: none;
     line-height: 22px;
     margin-left: 15%;
 }
-.popover ul h2
+.popover li h2
 {
     font-size: 16px;
 }
