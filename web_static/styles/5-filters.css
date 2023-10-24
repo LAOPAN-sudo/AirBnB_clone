@@ -41,15 +41,15 @@ Locations and Amenities style
 */
 
 
-.amenities,
-.locations {
+.filters .amenities,
+.filters .locations {
     height: 100%;
     width: 25%;
     line-height: 0px;
     float: left;
     margin-left: 35px;
 }
-.locations {
+.filters .locations {
     border-right: 1px solid #DDDDDD;
 }
 
