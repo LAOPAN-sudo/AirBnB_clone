@@ -24,6 +24,7 @@ Places styles
     border-radius: 4px;
 }
 .places article h2{
+    margin: 0;
     font-size: 30px;
     text-align: center;
 }

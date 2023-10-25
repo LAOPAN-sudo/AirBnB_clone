@@ -25,6 +25,7 @@ Places titles and disposition styles
 }
 
 .places article h2 {
+    margin: 0 0 40px 0;
     display: flex;
     justify-content: center;
     font-size: 30px;
@@ -117,6 +118,7 @@ article .reviews {
 
 article .amenities h2,
 article .reviews h2 {
+    margin: 0;
     font-size: 16px;
     border-bottom: 1px solid #DDD;
     display: flex;
@@ -127,14 +129,16 @@ article .amenities ul,
 article .reviews ul {
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin-top: 10px;
 }
 
 article .reviews ul h3 {
+    margin: 10px 0 10px 0;
     font-size: 14px;
 }
 
 article .reviews ul li p {
+    margin: 0;
     font-size: 12px;
 }
 
